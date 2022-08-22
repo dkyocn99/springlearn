@@ -1,0 +1,42 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
+    username: cos
+    password: xiirocks22
+
+  jpa:
+    open-in-view: true
+    hibernate:
+#      ddl-auto: create #기존 테이블 삭제 후 새로 생성
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl #Entity를 만들 때 내가 설정한 이름으로 테이블 이름 생성
+      use-new-id-generator-mappings: false #jpa기본 전략을 따라가지 않는다.
+    show-sql: true # 콘솔에 sql문을 보여준다
+    properties:
+      hibernate.format_sql: true # 보여주는 sql문을 정렬하여 보여준다
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  thymeleaf:
+    cache: false
+
+
+#  spring.devtools.livereload.enabled: false
