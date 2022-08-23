@@ -1,9 +1,11 @@
 package com.cos.blog.service;
 
+import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ public class UserService {
 
     //@Autowired
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
 //    public UserService(UserRepository userRepository) {
 //        this.userRepository = userRepository;
@@ -26,6 +29,11 @@ public class UserService {
 
     @Transactional
     public void join(User user) {
+
+        String rawPassword = user.getPassword(); // 원래 비밀번호
+        String encPassword = encoder.encode(rawPassword); // 해쉬 비밀번호
+        user.setPassword(encPassword);
+        user.setRole(RoleType.USER);
         userRepository.save(user);
     }
 
