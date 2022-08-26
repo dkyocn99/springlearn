@@ -1,0 +1,26 @@
+<th:block th:include="layout/header.html"></th:block>
+<div class="container">
+    <div>
+        글 번호:<span id ="id"><i th:utext="${boardView.id}"></i></span>
+        작성자:<span><i th:utext="${boardView.user.username}"></i></span>
+    </div>
+    <br>
+    <div>
+        <h3 th:text="${boardView.title}" ></h3>
+    </div>
+    <hr/>
+    <div>
+        <div th:utext="${boardView.content}"></div>
+    </div>
+    <hr/>
+</div>
+<br>
+<br>
+<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+<a th:with="boardViewId=${boardView.id}" th:href="@{/board/${boardViewId}/updateFom}" class="btn btn-warning">수정</a>
+<button id="btn-delete"class="btn btn-danger">삭제</button>
+<!--<div th:if="${boardView.user.id}==${principal.user.id}">-->
+<!--    <button id="btn-delete"class="btn btn-danger">삭제</button>-->
+<!--</div>-->
+<script src="/js/board.js"></script>
+<th:block th:include="layout/footer.html"></th:block>
