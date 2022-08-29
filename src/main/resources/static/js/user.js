@@ -5,7 +5,7 @@ let index = {
         $("#btn-save").on("click", () => { //function(){}을 사용하지 않고 ()=>{}을 사용하는 이유는 this를 바인딩하기 위해
             this.save();
         });
-        $("#btn-update").on("click", () => { //function(){}을 사용하지 않고 ()=>{}을 사용하는 이유는 this를 바인딩하기 위해
+        $("#btn-update").on("click", () => {
             this.update();
         });
     },

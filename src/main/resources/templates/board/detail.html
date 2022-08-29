@@ -1,5 +1,12 @@
 <th:block th:include="layout/header.html"></th:block>
 <div class="container">
+    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+    <a th:if="${boardView.user.username} == ${#authentication.name}">
+        <a th:href="@{'/board/'+ ${boardView.id} +'/updateForm'}" class="btn btn-warning">수정</a>
+        <button id="btn-delete"class="btn btn-danger">삭제</button>
+    </a>
+    <br>
+    <br>
     <div>
         글 번호:<span id ="id"><i th:utext="${boardView.id}"></i></span>
         작성자:<span><i th:utext="${boardView.user.username}"></i></span>
@@ -8,26 +15,39 @@
     <div>
         <h3 th:text="${boardView.title}" ></h3>
     </div>
-    <hr/>
+    <hr>
     <div>
         <div th:utext="${boardView.content}"></div>
     </div>
-    <hr/>
+    <hr>
+
+    <div class="card">
+        <form>
+            <input type="hidden" id="boardId" th:value="${boardView.id}">
+            <div>
+                <div class="card-body"><textarea id="reply-content" class="form-control" rows="1"></textarea></div>
+                <div class="card-footer"><button id="btn-reply-save" class="btn btn-primary">등록</button></div>
+            </div>
+        </form>
+    </div>
+
     <br>
-    <br>
-<!--    <div sec:authentication="name"></div>-->
-<!--    <a th:utext="${boardView.user.username}"></a>-->
-<!--    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>-->
-<!--        <a th:href="@{'/board/'+ ${boardView.id} +'/updateForm'}" class="btn btn-warning">수정</a>-->
-<!--        <button id="btn-delete"class="btn btn-danger">삭제</button>-->
-    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-    <a th:if="${boardView.user.username} == ${#authentication.name}">
-        <a th:href="@{'/board/'+ ${boardView.id} +'/updateForm'}" class="btn btn-warning">수정</a>
-        <button id="btn-delete"class="btn btn-danger">삭제</button>
-    </a>
+    <div class="card">
+        <div class="card-header">댓글 리스트</div>
+        <ul id="reply--box" class="list-group">
+            <div th:each="reply : ${boardView.replys}">
+            <li id="reply--1" class="list-group-item d-flex justify-content-between">
+                <div th:utext="${reply.content}">댓글 내용이야~</div>
+                <div class="d-flex">
+                    <div class="font-italic" th:utext="'작성자:'+ ${reply.user.username}">작성자:mango &nbsp;</div>
+                    <button class="badge">삭제</button>
+                </div>
+            </li>
+            </div>
+        </ul>
+    </div>
+
+
 </div>
-<!--<div th:if="${boardView.user.id}==${principal.user.id}">-->
-<!--    <button id="btn-delete"class="btn btn-danger">삭제</button>-->
-<!--</div>-->
 <script src="/js/board.js"></script>
 <th:block th:include="layout/footer.html"></th:block>
