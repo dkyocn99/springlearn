@@ -7,7 +7,7 @@ import com.cos.blog.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -24,7 +24,6 @@ public class BoardApiController {
         boardService.write(board,principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); //java오브젝트를 json으로 변환해서 리턴(jackson)
     }
-
     @DeleteMapping("api/board/{id}")
     public ResponseDto<Integer> deleteById(@PathVariable int id){
         boardService.writeDelete(id);

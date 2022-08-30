@@ -8,12 +8,10 @@
     </div>
 
     <ul class="pagination justify-content-center">
-        <li th:classappend="${boards.first} ? 'disabled'" class="page-item disabled">
-            <a  class="page-link" href="?page=${boards.number-1}">Previous</a></li>
-<!--            <a class="page-link" th:href="${boards.first} ? '#' : '@{?page=${#numbers.formatDecimal(startPage - pageSize, 0, -1)}}'">Previous</a></li>-->
+        <li th:classappend="${boards.first} ? 'disabled'" class="page-item">
+            <a  class="page-link" th:href="${boards.first} ? '#' : @{'?page=' + ${boards.number -1}}">Previous</a></li>
         <li th:classappend="${boards.last} ? 'disabled'" class="page-item">
-            <a class="page-link" th:href="@{'?page=' + ${boards.number+1}}">Next</a></li>
-<!--            <a class="page-link" th:href="${boards.last} ? '#' : @{?page=${#numbers.formatDecimal(startPage - pageSize, 0, -1)}}">Next</a></li>-->
+            <a class="page-link" th:href="${boards.last} ? '#' : @{'?page=' + ${boards.number+1}}">Next</a></li>
     </ul>
 </div>
 <th:block th:include="layout/footer.html"></th:block>

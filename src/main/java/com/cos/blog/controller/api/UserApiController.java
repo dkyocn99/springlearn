@@ -7,7 +7,12 @@ import com.cos.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +26,8 @@ public class UserApiController {
 //    @Autowired
 //    private UserService userService;
 
+    private final AuthenticationManager authenticationManager;
+
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
 
@@ -31,6 +38,16 @@ public class UserApiController {
         user.setRole(RoleType.USER);
         userService.join(user);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); //java오브젝트를 json으로 변환해서 리턴(jackson)
+    }
+
+    @PutMapping("/user")
+    public ResponseDto<Integer> update(@RequestBody User user) {
+        userService.updatemember(user);
+        //세션 등록
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
 

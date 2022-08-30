@@ -24,7 +24,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div sec:authentication="principal"></div>
+  <div sec:authentication property="principal.user.email"></div>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <div sec:authorize="!isAuthenticated()">
       <ul class="navbar-nav">
@@ -42,7 +42,7 @@
           <a class="nav-link" href="/board/saveForm">글쓰기</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/user/updateFrom">회원정보</a>
+          <a class="nav-link" href="/user/updateForm">회원정보</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">로그아웃</a>

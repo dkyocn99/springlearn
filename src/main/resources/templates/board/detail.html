@@ -13,12 +13,19 @@
         <div th:utext="${boardView.content}"></div>
     </div>
     <hr/>
+    <br>
+    <br>
+<!--    <div sec:authentication="name"></div>-->
+<!--    <a th:utext="${boardView.user.username}"></a>-->
+<!--    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>-->
+<!--        <a th:href="@{'/board/'+ ${boardView.id} +'/updateForm'}" class="btn btn-warning">수정</a>-->
+<!--        <button id="btn-delete"class="btn btn-danger">삭제</button>-->
+    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+    <a th:if="${boardView.user.username} == ${#authentication.name}">
+        <a th:href="@{'/board/'+ ${boardView.id} +'/updateForm'}" class="btn btn-warning">수정</a>
+        <button id="btn-delete"class="btn btn-danger">삭제</button>
+    </a>
 </div>
-<br>
-<br>
-<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-<a th:with="boardViewId=${boardView.id}" th:href="@{/board/${boardViewId}/updateFom}" class="btn btn-warning">수정</a>
-<button id="btn-delete"class="btn btn-danger">삭제</button>
 <!--<div th:if="${boardView.user.id}==${principal.user.id}">-->
 <!--    <button id="btn-delete"class="btn btn-danger">삭제</button>-->
 <!--</div>-->
