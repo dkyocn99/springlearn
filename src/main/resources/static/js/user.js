@@ -33,7 +33,6 @@ let index = {
         }).done(function(resp) {
             alert("회원가입이 완료되었습니다.");
             console.log(resp);
-            // alert(resp);
             location.href="/"
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -48,12 +47,11 @@ let index = {
             email:$("#email").val()
         };
         $.ajax({
-            //회원가입 수행 요청(100초 가정)
             type:"PUT",
             url:"/user",
-            data: JSON.stringify(data), //http body데이터
-            contentType: "application/json;", //body데이터가 어떤 타입인지(MIME)
-            dataType: "json" //요청을 서버로 응답이 왔을 떄 기본적으로 모든 것이 문자열(생긴게 json이라면) => javascript오브젝트로 변경
+            data: JSON.stringify(data),
+            contentType: "application/json;",
+            dataType: "json"
         }).done(function(resp) {
             alert("회원수정이 완료되었습니다.");
             console.log(resp);

@@ -84,10 +84,10 @@ let index = {
     replySave: function () {
 
         let data = {
+            userId:$("#userId").val(),
             boardId:$("#boardId").val(),
-            content: $("#content").val()
+            content: $("#reply-content").val()
         };
-
         $.ajax({
             //회원가입 수행 요청(100초 가정)
             type: "POST",
@@ -98,8 +98,23 @@ let index = {
         }).done(function (resp) {
             alert("댓글이 추가되었습니다.");
             console.log(resp);
-            // alert(resp);
             location.href = `/board/${data.boardId}`
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    replyDelete: function (boardId,replyId) {
+
+        $.ajax({
+            //회원가입 수행 요청(100초 가정)
+            type: "DELETE",
+            url: `/api/board/${boardId}/reply/${replyId}`,
+            dataType: "json"
+        }).done(function (resp) {
+            alert("댓글이 삭제되었습니다.");
+            console.log(resp);
+            location.href = `/board/${boardId}`
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
