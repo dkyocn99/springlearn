@@ -37,7 +37,6 @@ public class Board {
 
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) //mappedBy 연관관계의 주인이 아니다(난 FK가 아니예요) DB에 칼럼을 만들지 마세요
     @JsonIgnoreProperties({"board"}) //무한참조 방지를 위해 설정
-    // 왜 LAZY로 무한 참조 방지 안될까?
     @OrderBy("id desc")
     private List<Reply> replys;
 
