@@ -5,7 +5,7 @@ let index = {
         $("#btn-save").on("click", () => { //function(){}을 사용하지 않고 ()=>{}을 사용하는 이유는 this를 바인딩하기 위해
             this.save();
         });
-        $("#btn-update").on("click", () => { //function(){}을 사용하지 않고 ()=>{}을 사용하는 이유는 this를 바인딩하기 위해
+        $("#btn-update").on("click", () => {
             this.update();
         });
     },
@@ -33,7 +33,28 @@ let index = {
         }).done(function(resp) {
             alert("회원가입이 완료되었습니다.");
             console.log(resp);
-            // alert(resp);
+            location.href="/"
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    update: function () {
+        let data = {
+            id:$("#id").val(),
+            username: $("#username").val(),
+            password:$("#password").val(),
+            email:$("#email").val()
+        };
+        $.ajax({
+            type:"PUT",
+            url:"/user",
+            data: JSON.stringify(data),
+            contentType: "application/json;",
+            dataType: "json"
+        }).done(function(resp) {
+            alert("회원수정이 완료되었습니다.");
+            console.log(resp);
             location.href="/"
         }).fail(function (error) {
             alert(JSON.stringify(error));
